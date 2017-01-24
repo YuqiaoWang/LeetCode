@@ -29,3 +29,15 @@ public class Solution {
         return null;
     }
 }
+
+So the simplest solution using a HashMap is to simply throw all the data in there to start with, 
+then iterate through all of the numbers to see if (target-num) is in there, and if it is, return {lower index, higher index}.
+
+However, we can cut down on some runtime and code length by doing it in a single for loop.
+
+We know that the first number is strictly less than the second number (implying not equal), 
+so if we are returning {value found in HashMap, current loop iteration} 
+then we can be certain that we will never have to insert a value in the HashMap before we check if its difference is. 
+Because of this fact, we can do the inserting and checking in the same loop with no issues. 
+This saves a bit on runtime and memory because it means 
+that you are not guaranteed to have to save all of the data in the HashTable at the start.

@@ -4,10 +4,11 @@ LeetCode 刷题笔记
 
 
 
-1.Two Sum
+1. Two Sum
 
 Given an array of integers, return indices of the two numbers such that they add up to a specific target.
 You may assume that each input would have exactly one solution.
+The return format had been changed to zero-based indices.
 //Example:
 //Given nums = [2, 7, 11, 15], target = 9,
 //Because nums[0] + nums[1] = 2 + 7 =9,
@@ -21,7 +22,7 @@ public class Solution {
         for(int i = 0; i < numbers.length; i++) {
             Integer diff = (Integer)(target - numbers[i]);
             if(hash.containsKey(diff)) {
-                int toReturn[] = {hash.get(diff) + 1, i + 1};
+                int toReturn[] = {hash.get(diff), i};
                 return toReturn;
             }
             hash.put(numbers[i], i);
@@ -41,3 +42,77 @@ then we can be certain that we will never have to insert a value in the HashMap 
 Because of this fact, we can do the inserting and checking in the same loop with no issues. 
 This saves a bit on runtime and memory because it means 
 that you are not guaranteed to have to save all of the data in the HashTable at the start.
+
+
+2. Add Two Numbers
+
+You are given two non-empty linked lists representing two non-negative integers. 
+The digits are stored in reverse order and each of their nodes contain a single digit. 
+Add the two numbers and return it as a linked list.
+You may assume the two numbers do not contain any leading zero, except the number 0 itself.
+
+//Input: (2 -> 4 -> 3) + (5 -> 6 ->4)
+//Output: 7 -> 0 -> 8
+
+//Tags: Linked List, Math
+
+public class Solution {
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        ListNode c1 = l1;
+        ListNode c2 = l2;
+        ListNode sentinel = new ListNode(0);
+        ListNode d = sentinel;
+        int sum = 0;
+        while(c1 != null || c2 != null) {
+        //个人猜测这个判断条件是为了"最低位对齐，最高位不一定对齐"的情况
+            sum /= 10;
+            if(c1 != null) {
+                sum += c1.val;
+                c1 = c1.next;
+            }
+            if(c2 != null) {
+                sum += c2.val;
+                c2 = c2.next;
+            }
+            d.next = new ListNode(sum % 10); //进位
+            d = d.next;
+        }
+        if(sum / 10 == 1)
+            d.next = new ListNode(1);
+            return sentinel.next;
+    }
+}
+// This answer by an SWE in Google.
+
+
+3. Longest Substring Without Repeating Characters
+
+Given a string, find the length of the longest substring without repeating characters.
+
+//Examples:
+//Given "abcabcbb", the answer is "abc", which the length is 3.
+//Given "bbbbb", the answer is "b", with the length of 1.
+//Given "pwwkew", the answer is "wke", with the length of 3. 
+//Note that the answer must be a substring, "pwke" is a subsequence and not a substring.
+
+//Tags: Hash Table, Two Pointers, String
+
+public int lengthOfLongestSubstring(String s) {
+    if(s.length() == 0) return 0;
+    HashMap<Character, Integer> map = new HashMap<Character, Integer>();
+    int max = 0;
+    for(int i = 0, j = 0; i < s.length(); i++) {
+        if(map.containsKey(s.charAt(i))) {
+            j = Math.max(j, map.get(s.charAt(i))+1);
+        }
+        map.put(s.charAt(i), i);
+        max = Math.max(max, i-j+1);
+    }
+    return max;
+}
+
+The basic idea is, keep a hashmap which stores the characters in string as keys and their positions as values, 
+and keep two pointers which define the max substring. 
+Move the right pointer to scan through the string , and meanwhile update the hashmap. 
+If the character is already in the hashmap, then move the left pointer to the right of the same character last found. 
+Note that the two pointers can only move forward.

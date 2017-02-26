@@ -246,6 +246,12 @@ pointed out that: i < m ==> j > 0 and i > 0 ==> j < n . Because:<br>
 So in situation 2. and 3. , we don't need to check whether j > 0 and whether j < n.
 
 
-
+## 5. Longest Palindromic Substring
+Given a string s, find the longest palindromic substring in s.<br>
+You may assume that the maximum length of s is 1000.
+> Example:<br>
+> Input: "babad"<br>
+>Output: "bab"<br>
+Note: "aba" is also a valid answer.
 
 

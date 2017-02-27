@@ -256,6 +256,45 @@ Note: "aba" is also a valid answer.
 
 Tags: String
 
+<pre><code>
+public class Solution {
+    private int lo, maxLen;
 
+    public String longestPalindrome(String s) {
+        int len = s.length();
+        if(len < 2)
+            return  s;
+        for(int i = 0; i < len - 1; i++) {
+            extendPalindrome(s, i, i);          //assue odd length
+            extendPalindrome(s, i, i + 1);      //assume even length
+        }    
+    }
 
+    public void extendPalindrome(String s, int j, int k) {
+        while(j >= 0 && k < s.length() && s.charAt(j) == s.charAt(k)) {
+            j--;
+            k++;
+        }
+        if(maxLen < k - j - 1) {
+            lo = j + 1;
+            maxLen = k - j - 1;
+        }
+    }
+}
+</code></pre>
+
+## 6. ZigZag Conversion
+The string "PAYPALISHIRING" is written in a zigzag pattern on a given number of rows like this:<br> 
+(you may want to display this pattern in a fixed font for better legibility) 
+><pre>P   A   H   N</pre>
+><pre>A P L S I I G</pre>
+><pre>Y   I   R</pre>
+
+And then read line by line: "PAHNAPLSIIGYIR"<br>
+Write the code that will take a string and make this conversion given a number of rows: <br>
+><code>string convert(string text, int nRows);</code>
+
+convert("PAYPALISHIRING", 3) should return "PAHNAPLSIIGYIR". <br>
+
+Tags: String
 

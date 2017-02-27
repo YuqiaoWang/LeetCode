@@ -298,3 +298,32 @@ convert("PAYPALISHIRING", 3) should return "PAHNAPLSIIGYIR". <br>
 
 Tags: String
 
+Create nRows StringBuffers, and keep collecting characters from original string to corresponding StringBuffer.<br>
+Just take care of your index to keep them in bound.
+
+<pre><code>
+public String convert(String text, int nRows) {
+    char[] c = s.toCharArray();
+    int len = c.length;
+    StringBuffer[] sb = new StringBuffer(nRows);
+    for(int i = 0; i < sb.length; i++) {
+        sb[i] = new StringBuffer();
+    }
+
+    int i = 0;
+    while(i < len) {
+        for(int idx = 0; idx < nRows && i < len; idx++) {
+            //vertically down
+            sb[idx].append(c[i++]);
+        }
+        for(int idx = nRows - 2; idx >= 1 && i < len; idx--) {
+            sb[idx].append(c[i++]);
+        }
+    }
+
+    for(int idx = 1; idx = sb.length; idx++) {
+
+    }
+}
+</code></pre>
+
